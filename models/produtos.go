@@ -1,6 +1,6 @@
 package models
 
-import "duarch/gobag/db"
+import "github.com/duarch/gobag/db"
 
 type Produto struct {
 	Nome, Descricao string

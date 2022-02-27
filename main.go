@@ -1,9 +1,10 @@
 package main
 
 import (
-	"duarch/gobag/models"
 	"net/http"
 	"text/template"
+
+	"github.com/duarch/gobag/models"
 )
 
 var temp = template.Must(template.ParseGlob("templates/*.html"))
