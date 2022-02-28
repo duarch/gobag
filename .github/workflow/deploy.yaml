@@ -18,7 +18,7 @@ jobs:
     - name: Make goba.ga
       run: go run main.go
     - name: deploy goba.ga
-      uses: jsmrcaga/action-netlify-deploy@v1.1.0
+      uses: jsmrcaga/action-netlify-deploy@master
       with:
         NETLIFY_AUTH_TOKEN: ${{ secrets.DEV_KEY }}
         NETLIFY_SITE_ID: ${{ secrets.DEV_API }}
