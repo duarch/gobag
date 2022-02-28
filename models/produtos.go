@@ -5,7 +5,7 @@ import "duarch/gobag/db"
 type Produto struct {
 	Nome, Descricao string
 	Preco           float64
-	id, Quantidade  int
+	Id, Quantidade  int
 }
 
 func BuscaProdutos() []Produto {
@@ -25,7 +25,7 @@ func BuscaProdutos() []Produto {
 		if err != nil {
 			panic(err)
 		}
-		// p.id = id
+		p.Id = id
 		p.Nome = nome
 		p.Descricao = descricao
 		p.Preco = preco
@@ -44,6 +44,19 @@ func InsereProduto(nome, descricao string, preco float64, quantidade int) {
 		panic(err)
 	}
 	_, err = insertProduto.Exec(nome, descricao, preco, quantidade)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+}
+
+func DeletaProduto(id string) {
+	db := db.ConnectDB()
+	deleteProduto, err := db.Prepare("DELETE FROM produtos WHERE id=$1")
+	if err != nil {
+		panic(err)
+	}
+	_, err = deleteProduto.Exec(id)
 	if err != nil {
 		panic(err)
 	}
