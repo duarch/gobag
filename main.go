@@ -4,7 +4,9 @@ import (
 	"net/http"
 	"text/template"
 
-	"github.com/duarch/gobag/models"
+	m "duarch/gobag/models"
+
+	_ "github.com/lib/pq"
 )
 
 var temp = template.Must(template.ParseGlob("templates/*.html"))
@@ -15,6 +17,7 @@ func main() {
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
-	produtos := models.BuscaTodosProdutos
-	temp.ExecuteTemplate(w, "Index", produtos)
+	TodosProdutos := m.BuscaProdutos()
+	temp.ExecuteTemplate(w, "Index", TodosProdutos)
+
 }

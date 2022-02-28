@@ -1,4 +1,4 @@
-module github.com/duarch/gobag
+module duarch/gobag
 
 go 1.17
 

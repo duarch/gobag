@@ -1,6 +1,6 @@
 package models
 
-import "github.com/duarch/gobag/db"
+import "duarch/gobag/db"
 
 type Produto struct {
 	Nome, Descricao string
@@ -8,11 +8,9 @@ type Produto struct {
 	id, Quantidade  int
 }
 
-// "github.com/duarch/gobag/db"
-
-func BuscaTodosProdutos() []Produto {
-	database := db.ConnectDB()
-	selectProdutos, err := database.Query("SELECT * FROM produtos")
+func BuscaProdutos() []Produto {
+	db := db.ConnectDB()
+	selectProdutos, err := db.Query("SELECT * FROM produtos")
 	if err != nil {
 		panic(err)
 	}
@@ -35,7 +33,6 @@ func BuscaTodosProdutos() []Produto {
 		produtos = append(produtos, p)
 
 	}
-
-	defer database.Close()
+	defer db.Close()
 	return produtos
 }
