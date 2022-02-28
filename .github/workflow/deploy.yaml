@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Make and Deploy site
+    name: Deploy site
     runs-on: ubuntu-latest
     environment: netlify
     container: golang:latest
