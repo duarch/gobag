@@ -10,7 +10,7 @@ type Produto struct {
 
 func BuscaProdutos() []Produto {
 	db := db.ConnectDB()
-	selectProdutos, err := db.Query("SELECT * FROM produtos")
+	selectProdutos, err := db.Query("SELECT * FROM produtos ORDER BY id ASC")
 	if err != nil {
 		panic(err)
 	}
@@ -57,6 +57,32 @@ func DeletaProduto(id string) {
 		panic(err)
 	}
 	_, err = deleteProduto.Exec(id)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+}
+
+func EditaProduto(id string) Produto {
+	db := db.ConnectDB()
+	ProdDB, err := db.Prepare("SELECT * FROM produtos WHERE id=$1")
+	if err != nil {
+		panic(err)
+	}
+	p := Produto{}
+	ProdDB.QueryRow(id).Scan(&p.Id, &p.Nome, &p.Descricao, &p.Preco, &p.Quantidade)
+	defer db.Close()
+	return p
+
+}
+
+func AtualizaProduto(id int, nome, descricao string, preco float64, quantidade int) {
+	db := db.ConnectDB()
+	updateProduto, err := db.Prepare("UPDATE produtos SET nome=$1, descricao=$2, preco=$3, quantidade=$4 WHERE id=$5")
+	if err != nil {
+		panic(err)
+	}
+	_, err = updateProduto.Exec(nome, descricao, preco, quantidade, id)
 	if err != nil {
 		panic(err)
 	}

@@ -10,4 +10,6 @@ func LoadRoutes() {
 	http.HandleFunc("/new", t.New)
 	http.HandleFunc("/insert", t.Insert)
 	http.HandleFunc("/delete", t.Delete)
+	http.HandleFunc("/edit", t.Edit)
+	http.HandleFunc("/update", t.Update)
 }
